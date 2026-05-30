@@ -110,10 +110,17 @@ export class Agent {
     this.sessionId = opts.sessionId ?? randomUUID();
     this.provider = opts.provider;
     this.cacheApplicable = this.cache.enabled && isAnthropicModel(this.model);
-    this.stopSequences = [
-      ...this.tools.map((t) => `</${t.name}>`),
+    const allStops = [
       `</${COMPLETION_TAG}>`,
-    ].slice(0, 4);
+      ...this.tools.map((t) => `</${t.name}>`),
+    ];
+    if (allStops.length > 4) {
+      console.warn(
+        `[agent] Warning: ${allStops.length} stop sequences needed but API ` +
+          `limit is 4. Some tool stops will be omitted.`,
+      );
+    }
+    this.stopSequences = allStops.slice(0, 4);
   }
 
   private static emptyUsage(): UsageTotals {

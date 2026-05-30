@@ -62,18 +62,18 @@ function blockNames(tools: Tool[]): string[] {
 }
 
 export function repairTruncatedOutput(text: string, tools: Tool[]): string {
-  let earliest: { name: string; start: number } | null = null;
+  let last: { name: string; start: number } | null = null;
   for (const name of blockNames(tools)) {
     const open = openTagRe(name).exec(text);
     const hasClose = new RegExp(`</${escapeRegExp(name)}>`).test(text);
     if (open && !hasClose) {
-      if (earliest === null || open.index < earliest.start) {
-        earliest = { name, start: open.index };
+      if (last === null || open.index > last.start) {
+        last = { name, start: open.index };
       }
     }
   }
-  if (earliest) {
-    return `${text}\n</${earliest.name}>`;
+  if (last) {
+    return `${text}\n</${last.name}>`;
   }
   return text;
 }

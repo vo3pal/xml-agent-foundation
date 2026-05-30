@@ -9,7 +9,7 @@
     "start": "cross-env NODE_OPTIONS=--use-system-ca tsx src/index.ts",
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit",
-    "test:parser": "tsx src/xml/parser.smoke.ts",
+    "test:parser": "cross-env NODE_OPTIONS=--use-system-ca tsx src/xml/parser.smoke.ts",
     "ping": "cross-env NODE_OPTIONS=--use-system-ca tsx src/dev/ping.ts",
     "diag": "cross-env NODE_OPTIONS=--use-system-ca tsx src/dev/diag.ts"
   },

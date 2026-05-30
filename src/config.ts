@@ -46,7 +46,9 @@ export const config = {
     ? "1h"
     : "5m") as CacheTtl,
   reasoningEffort: parseReasoningEffort(),
-  temperature: Number(process.env.OPENROUTER_TEMPERATURE ?? "0"),
+  temperature: Number.isFinite(Number(process.env.OPENROUTER_TEMPERATURE))
+    ? Number(process.env.OPENROUTER_TEMPERATURE)
+    : 0,
 } as const;
 
 export const client = new OpenRouter({
