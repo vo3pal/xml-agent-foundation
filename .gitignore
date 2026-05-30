@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+*.log
+workspace/
+diag-result.txt
+
+# Research documents
+AI Agent_ OpenRouter, Caching, XML.md
+openrouter-sdk-deep-dive.md
